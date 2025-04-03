@@ -25,4 +25,23 @@ export class TasksService {
   deleteTask(id: string): void {
     this.tasks = this.tasks.filter((task) => task.id !== id);
   }
+
+  updateTask(
+    id: string,
+    title: string,
+    description: string,
+    isCompleted: boolean,
+  ): TasksModule {
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
+    if (taskIndex === -1) {
+      throw new Error('Task not found'); // If task doesn't exist
+    }
+
+    const updatedTask = this.tasks[taskIndex];
+    updatedTask.title = title;
+    updatedTask.description = description;
+    updatedTask.isCompleted = isCompleted;
+
+    return updatedTask;
+  }
 }
